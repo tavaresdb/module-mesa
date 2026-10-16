@@ -34,7 +34,7 @@ resource "aws_instance" "example-1" {
   - `replace_triggered_by`: força a substituição do recurso quando determinados atributos de outros recursos forem modificados
   */
   // Nesse exemplo, como definimos um data source para buscar a AMI mais recente, uma nova AMI pode ser lançada a qualquer momento; consequentemente, ao aplicar o código Terraform novamente, uma nova AMI pode ser detectada e a instância poderá ser recriada - o bloco abaixo impede esse tipo de situação
-  lifecycle = {
+  lifecycle {
     ignore_changes = [
       ami
     ]
