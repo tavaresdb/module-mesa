@@ -10,3 +10,11 @@ variable "tag_name" {
   type        = string
   description = "Nome da tag"
 }
+
+variable "extras_volumes" {
+  type        = map(object({
+    device_name = string
+    volume_size = string
+  }))
+  description = "Nome da tag"
+}

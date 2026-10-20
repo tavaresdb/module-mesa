@@ -20,6 +20,14 @@ resource "aws_instance" "example-1" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
 
+  dynamic "ebs_block_device" {
+    for_each = var.extras_volumes
+    content {
+      device_name = ebs_block_device.value["device_name"]
+      volume_size = ebs_block_device.value["volume_size"]
+    }
+  }
+
   tags = {
     Name = var.tag_name
   }
