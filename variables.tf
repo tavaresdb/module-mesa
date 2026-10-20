@@ -16,5 +16,5 @@ variable "extras_volumes" {
     device_name = string
     volume_size = string
   }))
-  description = "Nome da tag"
+  description = "Volumes EBS adicionais a serem anexados à instância"
 }
