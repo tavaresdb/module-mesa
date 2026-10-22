@@ -16,9 +16,10 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_instance" "example-1" {
+resource "aws_instance" "this" {
+  for_each      = var.instances
   ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
+  instance_type = each.value["instance_type"]
 
   dynamic "ebs_block_device" {
     for_each = var.extras_volumes
@@ -29,7 +30,8 @@ resource "aws_instance" "example-1" {
   }
 
   tags = {
-    Name = var.tag_name
+    Name     = each.value["tag_name"]
+    Product  = each.key
   }
 
   // DOC utilizada como referência: https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle
